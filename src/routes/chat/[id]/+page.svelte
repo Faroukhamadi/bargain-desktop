@@ -290,10 +290,12 @@
 						<div class="chat-image self-start pl-1 pt-1">
 							<div
 								class="mask mask-squircle online flex aspect-square w-8 items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
-							></div>
+							>
+								<span class="text-xs text-neutral-content">GPT</span>
+							</div>
 						</div>
 						<div
-							class="chat-bubble whitespace-normal bg-base-100 text-base font-light text-base-content w-full"
+							class="chat-bubble whitespace-normal bg-base-200 text-base font-light text-base-content w-full"
 						>
 							{#if question.data.content === ''}
 								<div class="inline-block rounded bg-base-200 px-4 py-1">
