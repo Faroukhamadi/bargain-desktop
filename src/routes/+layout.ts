@@ -1,7 +1,11 @@
+import { invoke } from '@tauri-apps/api/tauri';
+
 export const prerender = true;
 export const ssr = false;
 
 export const load = async () => {
+	const res: string = await invoke('get_messages');
+	console.log('res is: ', res);
 	const chats = [
 		{
 			id: 1,
