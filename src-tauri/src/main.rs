@@ -7,11 +7,7 @@ use serde::{Deserialize, Serialize};
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![
-            read_file,
-            get_messages,
-            get_message
-        ])
+        .invoke_handler(tauri::generate_handler![read_file, get_chats, get_chat])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -39,7 +35,7 @@ struct Chats {
 }
 
 #[tauri::command]
-fn get_messages() -> Result<String, String> {
+fn get_chats() -> Result<String, String> {
     let path = "/tmp/bargain";
     match fs::read_dir(path) {
         Ok(entries) => {
@@ -59,9 +55,8 @@ fn get_messages() -> Result<String, String> {
 }
 
 #[tauri::command]
-fn get_message(id: String) -> Result<String, String> {
-    // I have this file format messages_{id}.json in /tmp/bargain and return the chat as json
-    let path = format!("/tmp/bargain/messages_{}.json", id);
+fn get_chat(id: String) -> Result<String, String> {
+    let path = format!("/tmp/bargain/chats_{}.json", id);
     match fs::read_to_string(path) {
         Ok(content) => Ok(content),
         Err(e) => Err(e.to_string()),
