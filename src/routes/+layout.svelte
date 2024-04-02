@@ -202,10 +202,10 @@
 									<div class="relative flex w-full flex-row items-center justify-between">
 										<div class="flex flex-col">
 											<p class="text-sm font-light">
-												{truncate(chat.subtitle, 42)}
+												{truncate(chat.title, 42)}
 											</p>
-											<span class="text-xs font-semibold">{chat.model}</span>
-											<span class="text-xs">{timeSince(chat.created) + ' ago'}</span>
+											<span class="text-xs font-semibold">GPT-3.5</span>
+											<span class="text-xs">{timeSince(chat.created_at) + ' ago'}</span>
 										</div>
 										<div class="absolute right-0 opacity-0 group-hover:opacity-100 transition">
 											<!-- {#if $page.params.id === chat.id} -->
