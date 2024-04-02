@@ -3,6 +3,8 @@
 
 use std::fs;
 
+use serde::{Deserialize, Serialize};
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![read_file, get_messages])
@@ -18,62 +20,47 @@ fn read_file(path: String) -> Result<String, String> {
     }
 }
 
+// {
+//     2   │   "id": "1dee5252-0855-470d-bc77-0dd14b26e0c3",
+//     3   │   "title": "Chat 1712025755149",
+//     4   │   "created_at": "2024-04-02T02:42:35.149Z",
+//     5   │   "messages": [
+//     6   │     {
+//     7   │       "from": "user",
+//     8   │       "text": "salem bro belahi bch nthabet sure switches red wela 5ater barch
+//         │ a y7ot switch we howa switch a5er "
+//     9   │     },
+
+#[derive(Deserialize, Serialize)]
+struct Message {
+    from: String,
+    text: String,
+}
+
+#[derive(Deserialize, Serialize)]
+struct Chats {
+    id: String,
+    title: String,
+    created_at: String,
+    messages: Vec<Message>,
+}
+
 #[tauri::command]
 fn get_messages() -> Result<String, String> {
     let path = "/tmp/bargain";
-    // read chats from the path directory which are files that contain messages
-    // structured like this and they are json
-    // {
-    //     "id": "69",
-    //     "messages": [
-    //         {
-    //             "from": "farouk",
-    //             "text": "hello this is me faroukkkkkkkkkk"
-    //         },
-    //         {
-    //             "from": "ai",
-    //             "text": "hello this is me the ai hahahah cool"
-    //         },
-    //         {
-    //             "from": "farouk",
-    //             "text": "hello this is me faroukkkkkkkkkk"
-    //         },
-    //         {
-    //             "from": "ai",
-    //             "text": "hello this is me the ai hahahah cool"
-    //         },
-    //         {
-    //             "from": "farouk",
-    //             "text": "hello this is me faroukkkkkkkkkk"
-    //         },
-    //         {
-    //             "from": "ai",
-    //             "text": "hello this is me the ai hahahah cool"
-    //         },
-    //         {
-    //             "from": "farouk",
-    //             "text": "hello this is me faroukkkkkkkkkk"
-    //         },
-    //         {
-    //             "from": "ai",
-    //             "text": "hello this is me the ai hahahah cool"
-    //         },
-    //         {
-    //             "from": "farouk",
-    //             "text": "hello this is me faroukkkkkkkkkk"
-    //         },
-    //         {
-    //             "from": "ai",
-    //             "text": "hello this is me the ai hahahah cool"
-    //         },
-    //     ]
-    // }
-    let mut messages = vec![];
-    for entry in fs::read_dir(path).unwrap() {
-        let entry = entry.unwrap();
-        let path = entry.path();
-        let content = fs::read_to_string(path).unwrap();
-        messages.push(content);
+    match fs::read_dir(path) {
+        Ok(entries) => {
+            let mut chats = Vec::new();
+            for entry in entries {
+                let entry = entry.unwrap();
+                let path = entry.path();
+                let content = fs::read_to_string(path).unwrap();
+                let chat: Chats = serde_json::from_str(&content).unwrap();
+                chats.push(chat);
+            }
+            let json = serde_json::to_string(&chats).unwrap();
+            Ok(json)
+        }
+        Err(e) => Err(e.to_string()),
     }
-    Ok(messages.join("\n"))
 }

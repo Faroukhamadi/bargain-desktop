@@ -4,9 +4,10 @@ export const prerender = true;
 export const ssr = false;
 
 export const load = async () => {
-	const res: string = await invoke('get_messages');
-	console.log('res is: ', res);
-	const chats = [
+	const chatsString: string = await invoke('get_messages');
+	const chats: Chat[] = JSON.parse(chatsString);
+
+	const _chats = [
 		{
 			id: 1,
 			subtitle: 'chat 1',
@@ -28,7 +29,7 @@ export const load = async () => {
 	];
 
 	return {
-		chats
+		_chats
 	};
 };
 
