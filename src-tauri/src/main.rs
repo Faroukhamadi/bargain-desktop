@@ -56,7 +56,7 @@ fn get_chats() -> Result<String, String> {
 
 #[tauri::command]
 fn get_chat(id: String) -> Result<String, String> {
-    let path = format!("/tmp/bargain/chats_{}.json", id);
+    let path = format!("/tmp/bargain/chat_{}.json", id);
     match fs::read_to_string(path) {
         Ok(content) => Ok(content),
         Err(e) => Err(e.to_string()),
