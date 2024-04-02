@@ -1,5 +1,3 @@
-// define a chat type
-
 interface Message {
 	from: string;
 	text: string;
