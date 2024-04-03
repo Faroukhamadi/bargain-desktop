@@ -70,7 +70,7 @@
 		data.append('prompt', prompt);
 
 		const eventSource = new EventSource(
-			'/api/chat/' + $page.params.id + '/question?' + data.toString()
+			'http://localhost:8000/api/conversation/' + $page.params.id + '/question?' + data.toString()
 		);
 
 		history = [
@@ -78,18 +78,10 @@
 			{
 				from: 'user',
 				text: prompt
-				// type: 'user',
-				// data: {
-				// 	content: prompt
-				// }
 			},
 			{
 				from: 'ai',
 				text: ''
-				// type: 'ai',
-				// data: {
-				// 	content: ''
-				// }
 			}
 		];
 
@@ -101,7 +93,7 @@
 
 		eventSource.addEventListener('close', async () => {
 			eventSource.close();
-			await invalidate('/api/chat/' + $page.params.id);
+			await invalidate('http://localhost:8000/api/conversation/' + $page.params.id);
 			prompt = '';
 		});
 

@@ -7,8 +7,6 @@ export const load = async () => {
 	const chatsString: string = await invoke('get_chats');
 	const chats: Chat[] = JSON.parse(chatsString);
 
-	console.log('chats: ', chats);
-
 	return {
 		chats
 	};
