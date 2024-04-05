@@ -62,36 +62,35 @@
 		</div>
 	</div>
 
-    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <details class="bg-base-200 collapse max-w-xl mx-auto" tabindex="0" id="model_settings">
-        <summary class="text-xl font-medium collapse-title">Model settings</summary>
-        <div class="collapse-content flex flex-col items-center">
-            <div
-                class="tooltip tooltip-bottom col-span-1"
-                data-tip="Controls how random the generated text is. Higher temperatures lead to more random and creative text, while lower temperatures lead to more predictable and conservative text."
-                >
-                <label for="temperature" class="label-text">Temperature - [{temp}]</label>
-                <input
-                id="temperature"
-                name="temperature"
-                type="range"
-                bind:value={temp}
-                min="0.05"
-                max="2"
-                step="0.05"
-                class="range range-sm mt-auto"
-                />
-            </div>
-            <div class="col-span-3 flex flex-col">
-                <label for="init_prompt" class="label-text pb-1">Prompt Template</label>
-                <textarea
-                    class="textarea-bordered textarea h-24 w-full"
-                    name="init_prompt"
-                    bind:value={init_prompt}
-                    placeholder="Enter your prompt here"
-                    />
-            </div>
-        </div>
-    </details>
-
+	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+	<details class="bg-base-200 collapse max-w-xl mx-auto" tabindex="0" id="model_settings">
+		<summary class="text-xl font-medium collapse-title">Model settings</summary>
+		<div class="collapse-content flex flex-col items-center">
+			<div
+				class="tooltip tooltip-bottom col-span-1"
+				data-tip="Controls how random the generated text is. Higher temperatures lead to more random and creative text, while lower temperatures lead to more predictable and conservative text."
+			>
+				<label for="temperature" class="label-text">Temperature - [{temp}]</label>
+				<input
+					id="temperature"
+					name="temperature"
+					type="range"
+					bind:value={temp}
+					min="0.05"
+					max="2"
+					step="0.05"
+					class="range range-sm mt-auto"
+				/>
+			</div>
+			<div class="col-span-3 flex flex-col">
+				<label for="init_prompt" class="label-text pb-1">Prompt Template</label>
+				<textarea
+					class="textarea-bordered textarea h-24 w-full"
+					name="init_prompt"
+					bind:value={init_prompt}
+					placeholder="Enter your prompt here"
+				/>
+			</div>
+		</div>
+	</details>
 </form>

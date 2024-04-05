@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { invalidate, goto } from '$app/navigation';
+	import { invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { newChat, themeStore } from '$lib/stores';
 	import { onMount, onDestroy } from 'svelte';
@@ -97,7 +97,7 @@
 			prompt = '';
 		});
 
-		eventSource.onerror = async (error) => {
+		eventSource.onerror = async (event) => {
 			eventSource.close();
 		};
 	}
