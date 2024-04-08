@@ -1,6 +1,12 @@
+type MessageType = 'human' | 'ai' | 'system';
+
+interface MessageData {
+	content: string;
+}
+
 interface Message {
-	from: string;
-	text: string;
+	type: MessageType;
+	data: MessageData;
 }
 
 interface Chat {
@@ -9,4 +15,11 @@ interface Chat {
 	subtitle: string;
 	created: string;
 	messages: Message[];
+}
+
+interface ChatResponse {
+	id: string;
+	created: string;
+	params: Params;
+	history: Message[];
 }

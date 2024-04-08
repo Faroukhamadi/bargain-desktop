@@ -52,8 +52,8 @@
 	let theme: string;
 	let styleElement: HTMLLinkElement;
 	const isLoading = false;
-	$: startDate = new Date(data.chat.created_at);
-	$: history = data.chat.messages;
+	$: startDate = new Date(data.chat.created);
+	$: history = data.chat.history;
 	$: newChat.set(data.chat);
 	$: if (messageContainer) {
 		messageContainer.scrollBottom = messageContainer.scrollHeight;
@@ -76,19 +76,23 @@
 		history = [
 			...history,
 			{
-				from: 'user',
-				text: prompt
+				type: 'human',
+				data: {
+					content: prompt
+				}
 			},
 			{
-				from: 'ai',
-				text: ''
+				type: 'ai',
+				data: {
+					content: ''
+				}
 			}
 		];
 
 		prompt = '';
 
 		eventSource.addEventListener('message', (event) => {
-			history[history.length - 1].text += event.data;
+			history[history.length - 1].data.content += event.data;
 		});
 
 		eventSource.addEventListener('close', async () => {
@@ -242,7 +246,7 @@
 	>
 		<div class="h-max pb-4">
 			{#each history as question, i}
-				{#if question.from === 'user'}
+				{#if question.type === 'human'}
 					<div class="w-10/12 mx-auto sm:w-10/12 chat chat-end py-4">
 						<div class="chat-image self-start pl-1 pt-1">
 							<div
@@ -256,7 +260,7 @@
 						>
 							<!-- {question.data.content} -->
 							<div class="w-full overflow-hidden break-words">
-								{@html renderMarkdown(question.text)}
+								{@html renderMarkdown(question.data.content)}
 							</div>
 						</div>
 						{#if i === history.length - 1 && !isLoading}
@@ -281,7 +285,7 @@
 							</div>
 						{/if}
 					</div>
-				{:else if question.from === 'ai'}
+				{:else if question.type === 'ai'}
 					<div class="w-10/12 mx-auto sm:w-10/12 chat chat-start py-4">
 						<div class="chat-image self-start pl-1 pt-1">
 							<div
@@ -293,14 +297,14 @@
 						<div
 							class="chat-bubble whitespace-normal bg-base-200 text-base font-light text-base-content w-full"
 						>
-							{#if question.text === ''}
+							{#if question.data.content === ''}
 								<div class="inline-block rounded bg-base-200 px-4 py-1">
 									<div class="dots-load aspect-square w-2 rounded-full" />
 								</div>
 							{/if}
 							<!-- {question.data.content} -->
 							<div class="markdown">
-								{@html renderMarkdown(question.text)}
+								{@html renderMarkdown(question.data.content)}
 							</div>
 						</div>
 						{#if i === history.length - 1 && !isLoading}
@@ -326,13 +330,13 @@
 							</div>
 						{/if}
 					</div>
-				{:else if question.text === 'system'}
+				{:else if question.type === 'system'}
 					<div class="text-md w-full px-10 pt-2 pb-4 text-center font-light md:px-16">
 						<h4 class="badge badge-ghost text-center text-xs font-semibold">
 							{startDate.toLocaleString('en-US')}
 						</h4>
 						<br />
-						{question.from}
+						{question.data.content}
 					</div>
 				{/if}
 			{/each}

@@ -1,8 +1,7 @@
-import { invoke } from '@tauri-apps/api/tauri';
-
-export const load = async ({ params }) => {
-	const chatString: string = await invoke('get_chat', { id: params.id });
-	const chat: Chat = JSON.parse(chatString);
+export const load = async ({ fetch, params }) => {
+	const data = await fetch('http://localhost:8000/api/' + params.id);
+	const chat = (await data.json()) as ChatResponse;
+	console.log('chat:', chat);
 
 	return {
 		chat
