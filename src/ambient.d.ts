@@ -6,6 +6,7 @@ interface Message {
 interface Chat {
 	id: string;
 	title: string;
-	created_at: string;
+	subtitle: string;
+	created: string;
 	messages: Message[];
 }

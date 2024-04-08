@@ -1,13 +1,10 @@
-import { invoke } from '@tauri-apps/api/tauri';
-
 export const prerender = true;
 export const ssr = false;
 
-export const load = async () => {
-	const chatsString: string = await invoke('get_chats');
-	const chats: Chat[] = JSON.parse(chatsString);
+export const load = async ({ fetch }) => {
+	const chats = await fetch('http://localhost:8000/api');
 
 	return {
-		chats
+		chats: (await chats.json()) as Chat[]
 	};
 };
