@@ -34,6 +34,7 @@
 	$: id = $page.params.id || '';
 
 	async function goToHome() {
+		await invalidateAll();
 		await goto('/');
 	}
 
@@ -50,15 +51,15 @@
 	}
 
 	async function deleteAllChat() {
-		console.log('deleting all chats');
-		// const response = await fetch('/api/chat/delete/all', { method: 'DELETE' });
-		// if (response.status === 200) {
-		// 	toggleDeleteAllConfirm();
-		// 	await goto('/');
-		// 	await invalidate('/api/chat/');
-		// } else {
-		// 	console.error('Error ' + response.status + ': ' + response.statusText);
-		// }
+		const response = await fetch('http://localhost:8000/api/delete/all', { method: 'DELETE' });
+		if (response.status === 200) {
+			toggleDeleteAllConfirm();
+
+			await goto('/');
+			await invalidateAll();
+		} else {
+			console.error('Error ' + response.status + ': ' + response.statusText);
+		}
 	}
 
 	function toggleDeleteConfirm() {
@@ -145,13 +146,15 @@
 					fill="none"
 					viewBox="0 0 24 24"
 					class="inline-block w-5 h-5 stroke-current"
-					><path
+				>
+					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
 						stroke-width="2"
 						d="M4 6h16M4 12h16M4 18h16"
-					></path></svg
-				>
+					>
+					</path>
+				</svg>
 			</button>
 			<button
 				disabled={isLoading}
