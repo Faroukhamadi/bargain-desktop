@@ -2,10 +2,10 @@ export const prerender = true;
 export const ssr = false;
 
 export const load = async ({ fetch }) => {
-	const chats = await fetch('http://localhost:8000/api');
-	const data = await chats.json();
-	console.log('chats:', data);
+	const data = await fetch('http://localhost:8000/api');
+	const chats = (await data.json()) as Chat[];
+
 	return {
-		chats: data
+		chats
 	};
 };

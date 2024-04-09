@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import type { PageData } from './$types';
-	import { invalidate, goto } from '$app/navigation';
+	import { invalidate, goto, invalidateAll } from '$app/navigation';
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { newChat, themeStore } from '$lib/stores.js';
@@ -38,15 +38,15 @@
 	}
 
 	async function deleteChat(chatID: string) {
-		console.log('deleting chat');
-		// const response = await fetch('/api/chat/' + chatID, { method: 'DELETE' });
-		// if (response.status === 200) {
-		// 	toggleDeleteConfirm();
-		// 	await goto('/');
-		// 	await invalidate('/api/chat/');
-		// } else {
-		// 	console.error('Error ' + response.status + ': ' + response.statusText);
-		// }
+		const response = await fetch('http://localhost:8000/api/' + chatID, { method: 'DELETE' });
+		if (response.status === 200) {
+			toggleDeleteConfirm();
+
+			await goto('/');
+			await invalidateAll();
+		} else {
+			console.error('Error ' + response.status + ': ' + response.statusText);
+		}
 	}
 
 	async function deleteAllChat() {
@@ -214,7 +214,7 @@
 													<button
 														name="confirm-delete"
 														class="btn-ghost btn-sm btn"
-														on:click|preventDefault={() => deleteChat('1')}
+														on:click|preventDefault={() => deleteChat(chat.id)}
 													>
 														<svg
 															xmlns="http://www.w3.org/2000/svg"
