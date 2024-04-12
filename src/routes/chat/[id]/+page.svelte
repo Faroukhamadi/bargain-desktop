@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { invalidate } from '$app/navigation';
+	import { invalidate, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { newChat, themeStore } from '$lib/stores';
 	import { onMount, onDestroy } from 'svelte';
@@ -240,10 +240,7 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="relative h-full max-h-screen overflow-hidden" on:keydown={handleKeyDown}>
-	<div
-		class="mb-11 h-[calc(98vh-10rem)] 2xl:h-[calc(97vh-12rem)] overflow-y-auto"
-		use:scrollToBottom={history}
-	>
+	<div class="mb-11 h-[calc(98vh-10rem)] 2xl:h-[calc(97vh-12rem)] overflow-y-auto">
 		<div class="h-max py-4">
 			<select
 				class="select select-bordered w-full max-w-xs"
@@ -254,9 +251,11 @@
 						await fetch(url, {
 							method: 'POST'
 						});
+						await invalidateAll();
 					}
 				}}
 			>
+				<option selected>Products</option>
 				{#each data.products as product}
 					<option selected={product === data.product} value={product}>{product}</option>
 				{/each}
