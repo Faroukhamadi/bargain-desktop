@@ -233,6 +233,28 @@
 
 		return { update: scroll };
 	};
+
+	const ACTIONS = [
+		{ label: 'greet', value: 'Please say hello and start the conversation.' },
+		{ label: 'inquire', value: 'Please ask any question about product, year, price, usage, etc.' },
+		{ label: 'inform', value: 'Please provide information about the product, year, usage, etc.' },
+		{ label: 'propose', value: 'Please initiate a price or a price range for the product.' },
+		{ label: 'counter', value: 'Please propose a new price or a new price range.' },
+		{
+			label: 'counter-noprice',
+			value: 'Please propose a vague price by using comparatives with existing price.'
+		},
+		{ label: 'confirm', value: 'Please ask a question about the information to be confirmed.' },
+		{ label: 'affirm', value: 'Please give an affirmative response to a confirm.' },
+		{ label: 'deny', value: 'Please give a negative response to a confirm.' },
+		{ label: 'agree', value: 'Please agree with the proposed price.' },
+		{ label: 'disagree', value: 'Please disagree with the proposed price.' },
+		{
+			label: 'improvise',
+			value: 'Please keep the negotiation going by trying to get to the goal price'
+		}
+	];
+
 	onDestroy(() => {
 		styleElement && styleElement.remove();
 	});
@@ -366,13 +388,30 @@
 		<div
 			class="input-bordered input flex h-auto w-full max-w-3xl flex-row items-center justify-between rounded-lg bg-base-200 px-0 drop-shadow-md"
 		>
-			<textarea
+			{#if ACTIONS.length > 0}
+				<select
+					class="select select-bordered w-1/4 max-w-xs"
+					on:change={async (e) => {
+						const action = e.target?.value;
+						if (action) {
+							prompt = ACTIONS.find((a) => a.label === action)?.value;
+							console.log('prompt: ', prompt);
+						}
+					}}
+				>
+					<option selected>Action</option>
+					{#each ACTIONS as action}
+						<option selected={action === data.action} value={action.label}>{action.label}</option>
+					{/each}
+				</select>
+			{/if}
+			<!-- <textarea
 				name="question"
 				class="textarea h-10 flex-1 resize-y bg-[transparent] text-lg placeholder-base-content outline-0 ring-0 focus:outline-0"
 				disabled={isLoading}
 				placeholder="Message BargainGPT..."
 				bind:value={prompt}
-			/>
+			/> -->
 			<button
 				on:mouseenter={onMouseEnter}
 				on:mouseleave={onMouseLeave}
