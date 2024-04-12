@@ -244,7 +244,16 @@
 		class="mb-11 h-[calc(98vh-10rem)] 2xl:h-[calc(97vh-12rem)] overflow-y-auto"
 		use:scrollToBottom={history}
 	>
-		<div class="h-max pb-4">
+		<div class="h-max py-4">
+			<select
+				class="select select-bordered w-full max-w-xs"
+				on:change={(e) => console.log('e is', e)}
+			>
+				<option disabled selected>Products</option>
+				{#each data.products as product}
+					<option value={product}>{product}</option>
+				{/each}
+			</select>
 			{#each history as question, i}
 				{#if question.type === 'human'}
 					<div class="w-10/12 mx-auto sm:w-10/12 chat chat-end py-4">
