@@ -247,11 +247,18 @@
 		<div class="h-max py-4">
 			<select
 				class="select select-bordered w-full max-w-xs"
-				on:change={(e) => console.log('e is', e)}
+				on:change={async (e) => {
+					const product = e.target?.value;
+					if (product) {
+						const url = `http://localhost:8000/api/${$page.params.id}/products?product=${product}`;
+						await fetch(url, {
+							method: 'POST'
+						});
+					}
+				}}
 			>
-				<option disabled selected>Products</option>
 				{#each data.products as product}
-					<option value={product}>{product}</option>
+					<option selected={product === data.product} value={product}>{product}</option>
 				{/each}
 			</select>
 			{#each history as question, i}
