@@ -240,7 +240,10 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="relative h-full max-h-screen overflow-hidden" on:keydown={handleKeyDown}>
-	<div class="mb-11 h-[calc(98vh-10rem)] 2xl:h-[calc(97vh-12rem)] overflow-y-auto">
+	<div
+		class="mb-11 h-[calc(98vh-10rem)] 2xl:h-[calc(97vh-12rem)] overflow-y-auto"
+		use:scrollToBottom={history}
+	>
 		<div class="h-max py-4">
 			<select
 				class="select select-bordered w-full max-w-xs"
