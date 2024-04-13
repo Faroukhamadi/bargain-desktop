@@ -388,23 +388,21 @@
 		<div
 			class="input-bordered input flex h-auto w-full max-w-3xl flex-row items-center justify-between rounded-lg bg-base-200 px-0 drop-shadow-md"
 		>
-			{#if ACTIONS.length > 0}
-				<select
-					class="select select-bordered w-1/4 max-w-xs"
-					on:change={async (e) => {
-						const action = e.target?.value;
-						if (action) {
-							prompt = ACTIONS.find((a) => a.label === action)?.value;
-							console.log('prompt: ', prompt);
-						}
-					}}
-				>
-					<option selected>Action</option>
-					{#each ACTIONS as action}
-						<option selected={action === data.action} value={action.label}>{action.label}</option>
-					{/each}
-				</select>
-			{/if}
+			<select
+				class="select select-bordered w-1/4 max-w-xs"
+				on:change={async (e) => {
+					const action = e.target?.value;
+					if (action) {
+						prompt = ACTIONS.find((a) => a.label === action)?.value;
+						console.log('prompt: ', prompt);
+					}
+				}}
+			>
+				<option selected>Action</option>
+				{#each ACTIONS as action}
+					<option selected={action === data.action} value={action.label}>{action.label}</option>
+				{/each}
+			</select>
 			<!-- <textarea
 				name="question"
 				class="textarea h-10 flex-1 resize-y bg-[transparent] text-lg placeholder-base-content outline-0 ring-0 focus:outline-0"
