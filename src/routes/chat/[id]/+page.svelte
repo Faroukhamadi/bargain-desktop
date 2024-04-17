@@ -292,7 +292,7 @@
 							<div
 								class="mask mask-squircle online flex aspect-square w-8 items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
 							>
-								<span class="text-xs text-neutral-content">I</span>
+								<span class="text-xs text-neutral-content">GPT</span>
 							</div>
 						</div>
 						<div
@@ -331,7 +331,7 @@
 							<div
 								class="mask mask-squircle online flex aspect-square w-8 items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
 							>
-								<span class="text-xs text-neutral-content">GPT</span>
+								<span class="text-xs text-neutral-content">Seller</span>
 							</div>
 						</div>
 						<div
