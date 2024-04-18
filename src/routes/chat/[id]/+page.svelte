@@ -295,6 +295,7 @@
 								<span class="text-xs text-neutral-content">GPT</span>
 							</div>
 						</div>
+						<div class="chat-header">Prompt</div>
 						<div
 							class="chat-bubble whitespace-normal break-words bg-base-300 text-base font-light text-base-content"
 						>
