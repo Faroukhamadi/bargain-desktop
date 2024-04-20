@@ -75,12 +75,12 @@
 
 		history = [
 			...history,
-			{
-				type: 'human',
-				data: {
-					content: prompt
-				}
-			},
+			// {
+			// 	type: 'human',
+			// 	data: {
+			// 		content: prompt
+			// 	}
+			// },
 			{
 				type: 'ai',
 				data: {
@@ -286,7 +286,7 @@
 				{/each}
 			</select>
 			{#each history as question, i}
-				{#if question.type === 'human'}
+				{#if question.type === 'ai'}
 					<div class="w-10/12 mx-auto sm:w-10/12 chat chat-end py-4">
 						<div class="chat-image self-start pl-1 pt-1">
 							<div
@@ -305,7 +305,7 @@
 							</div>
 						</div>
 					</div>
-				{:else if question.type === 'ai'}
+				{:else if question.type === 'human'}
 					<div class="w-10/12 mx-auto sm:w-10/12 chat chat-start py-4">
 						<div class="chat-image self-start pl-1 pt-1">
 							<div
