@@ -237,7 +237,6 @@
 	const ACTIONS = [
 		{ label: 'greet', value: 'Please say hello and start the conversation.' },
 		{ label: 'inquire', value: 'Please ask any question about product, year, price, usage, etc.' },
-		{ label: 'inform', value: 'Please provide information about the product, year, usage, etc.' },
 		{ label: 'propose', value: 'Please initiate a price or a price range for the product.' },
 		{ label: 'counter', value: 'Please propose a new price or a new price range.' },
 		{
