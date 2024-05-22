@@ -56,12 +56,6 @@
 	class="p-5"
 	aria-label="Model Settings"
 >
-	<div class="w-full pb-20">
-		<div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
-			<button type="submit" class="btn-primary btn mb-2 lg:mr-10 lg:mb-0">Start a new chat</button>
-		</div>
-	</div>
-
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<details class="bg-base-200 collapse max-w-xl mx-auto" tabindex="0" id="model_settings">
 		<summary class="text-xl font-medium collapse-title">Model settings</summary>
@@ -93,4 +87,9 @@
 			</div>
 		</div>
 	</details>
+	<div class="w-full pb-20">
+		<div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
+			<button type="submit" class="btn-primary btn mb-2 lg:mr-10 lg:mb-0">Submit</button>
+		</div>
+	</div>
 </form>
