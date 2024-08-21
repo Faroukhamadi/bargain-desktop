@@ -251,7 +251,8 @@
 		{
 			label: 'improvise',
 			value: 'Please keep the negotiation going by trying to get to the goal price'
-		}
+		},
+		{ label: 'no prompt', value: '' }
 	];
 
 	onDestroy(() => {
