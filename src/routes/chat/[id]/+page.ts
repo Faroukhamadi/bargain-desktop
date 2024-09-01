@@ -12,6 +12,8 @@ export const load = async ({ fetch, params }) => {
 			productData.json()
 		]);
 
+		chat.history.reverse();
+
 		return {
 			chat,
 			products,
